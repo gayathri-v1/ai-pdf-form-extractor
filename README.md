@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI PDF Form Extractor
 
-## Getting Started
+## Overview
 
-First, run the development server:
+AI PDF Form Extractor is a Next.js application that extracts form fields from PDF documents and generates a dynamic, editable form interface. Users can interact with the extracted fields while the application highlights the corresponding location in the PDF and automatically scrolls to the selected field.
+
+The application is designed to simplify reviewing and editing data extracted from PDF forms by maintaining synchronization between the document view and the generated form. It also provides a responsive experience across mobile, tablet, and desktop devices.
+
+## Features
+
+* PDF document rendering using React PDF
+* Dynamic form generation based on extracted field metadata
+* Field-level synchronization between form inputs and PDF document
+* Highlight corresponding PDF sections when a form field is selected
+* Automatic scrolling to the highlighted field in the PDF
+* Support for different field types including text inputs and checkboxes
+* Responsive two-panel layout optimized for mobile, tablet, and desktop devices
+* Loading state handling during document extraction
+* Error handling for failed extraction requests
+* Form state management using React Context API and Reducer
+* Optimized rendering and improved user experience using local storage caching
+
+## Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+
+### PDF Processing
+
+* React PDF
+* PDF.js
+
+### State Management
+
+* React Context API
+* useReducer
+
+### AI Integration
+
+* Gemini 3.5 Flash for PDF field extraction
+
+## Application Flow
+
+```
+PDF Document
+     |
+     ↓
+AI Extraction API
+     |
+     ↓
+Extracted Field JSON
+     |
+     ↓
+Reducer Updates State
+     |
+     ↓
+Dynamic Form + PDF Highlight Synchronization
+```
+
+## Project Structure
+
+```
+src
+├── app
+│   ├── api
+│   │   └── extract
+│   └── page.tsx
+│
+├── components
+│   ├── PdfViewer.tsx
+│   ├── DynamicForm.tsx
+│   └── Layout.tsx
+│
+├── context
+│   └── FormContext.tsx
+│
+├── utils
+│   └── groupFields.ts
+│
+└── data
+    └── mockFields.ts
+```
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Navigate to the project directory:
+
+```bash
+cd ai-pdf-form-extractor
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env.local` file in the root directory and add required environment variables:
+
+```env
+GEMINI_API_KEY=your_api_key
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the application:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Implementation Highlights
 
-## Learn More
+### Dynamic Form Generation
 
-To learn more about Next.js, take a look at the following resources:
+The form fields are generated dynamically based on extracted field metadata instead of using hardcoded inputs. This allows the application to support different PDF form structures.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### PDF Field Highlighting
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each extracted field contains page information and bounding box coordinates. When a user focuses on a form field:
 
-## Deploy on Vercel
+* The corresponding PDF page is identified
+* The field location is calculated using bounding box coordinates
+* A highlight overlay is rendered on the PDF
+* The document automatically scrolls to the highlighted section
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Responsive Layout
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The interface is designed to adapt smoothly across mobile, tablet, and desktop devices.
+
+* On mobile devices, the layout stacks vertically for easier scrolling and interaction
+* On tablet devices, the panels adjust to provide a balanced viewing experience
+* On desktop devices, the two-panel layout displays the PDF viewer and form side by side for efficient workflow
+
+### Performance Optimization
+
+* Local storage caching is used to reduce unnecessary data processing and improve user experience.
+* State updates are optimized using Context API with Reducer pattern.
+* Dynamic rendering prevents unnecessary hardcoded form structures.
+
+## Future Improvements
+
+* Support multiple PDF uploads
+* Export completed forms
+* Improve AI extraction confidence handling
+* Add more field types and validation rules
+
+## License
+
+This project is created for demonstration and evaluation purposes.
