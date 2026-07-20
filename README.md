@@ -22,6 +22,7 @@ The application is designed to simplify reviewing and editing data extracted fro
 * Error handling for failed extraction requests
 * Form state management using React Context API and Reducer
 * Optimized rendering and improved user experience using local storage caching
+* Zod-based schema validation for AI-generated JSON responses
 
 ## Tech Stack
 
@@ -45,7 +46,9 @@ The application is designed to simplify reviewing and editing data extracted fro
 ### AI Integration
 
 * Gemini 3.5 Flash for PDF field extraction
-
+  
+### Validation
+Zod
 ## Application Flow
 
 ```
@@ -148,7 +151,11 @@ The interface is designed to adapt smoothly across mobile, tablet, and desktop d
 * On mobile devices, the layout stacks vertically for easier scrolling and interaction
 * On tablet devices, the panels adjust to provide a balanced viewing experience
 * On desktop devices, the two-panel layout displays the PDF viewer and form side by side for efficient workflow
+### Validation
 
+* Zod is used to validate AI-generated JSON responses before storing them in application state.
+* Invalid responses are handled gracefully to prevent rendering errors.
+* Type-safe schema validation improves application reliability and data consistency.
 ### Performance Optimization
 
 * Local storage caching is used to reduce unnecessary data processing and improve user experience.
