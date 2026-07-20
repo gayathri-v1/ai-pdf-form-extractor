@@ -5,6 +5,9 @@
 AI PDF Form Extractor is a Next.js application that extracts form fields from PDF documents and generates a dynamic, editable form interface. Users can interact with the extracted fields while the application highlights the corresponding location in the PDF and automatically scrolls to the selected field.
 
 The application is designed to simplify reviewing and editing data extracted from PDF forms by maintaining synchronization between the document view and the generated form. It also provides a responsive experience across mobile, tablet, and desktop devices.
+<img width="1870" height="902" alt="image" src="https://github.com/user-attachments/assets/d21d2821-df0a-4be0-acc3-aa5143b4caed" />
+<img width="1887" height="815" alt="image" src="https://github.com/user-attachments/assets/6d088986-606f-421c-bd8e-2eac80296a23" />
+
 
 ## Features
 
