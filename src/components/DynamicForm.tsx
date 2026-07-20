@@ -1,7 +1,7 @@
 import { FormCtx } from "@/context/FormContext";
 import { groupFields } from "@/utils/groupFields";
 import React, { useContext } from "react";
-
+import { formatDateValue } from "@/utils/formatDate";
 export const DynamicForm = () => {
   const { state, dispatch } = useContext(FormCtx);
   const groupedFields = groupFields(state.fields)
@@ -68,12 +68,41 @@ export const DynamicForm = () => {
   </label>
 ) : (
   <>
-    <label  htmlFor={field.id} className="text-sm font-medium text-zinc-700">
-      {field.label}
-    </label>
+  <label htmlFor={field.id} className="text-sm font-medium text-zinc-700">
+    {field.label}
+  </label>
 
+  {field.type === "date" ? (
+    <div className="space-y-2">
+      <p className="text-xs text-zinc-500">
+        Extracted: {formatDateValue(String(field.value ?? ""))}
+      </p>
+
+      <input
+        id={field.id}
+        type="date"
+        value={formatDateValue(String(field.value ?? ""))}
+        onChange={(e) =>
+          dispatch({
+            type: "UPDATE_FIELD",
+            payload: {
+              id: field.id,
+              value: e.target.value,
+            },
+          })
+        }
+        onFocus={() =>
+          dispatch({
+            type: "SET_FOCUSED_FIELD_ID",
+            payload: field.id,
+          })
+        }
+        className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+      />
+    </div>
+  ) : (
     <input
-        id= {field.id}
+      id={field.id}
       type={field.type}
       value={String(field.value ?? "")}
       onChange={(e) =>
@@ -91,8 +120,10 @@ export const DynamicForm = () => {
           payload: field.id,
         })
       }
-className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"    />
-  </>
+      className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+    />
+  )}
+</>
 )}
           </div>
         ))}
